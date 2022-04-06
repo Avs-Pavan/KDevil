@@ -12,7 +12,7 @@ import com.kevin.devil.models.DevilFailedRequest;
 import com.kevin.devil.models.DevilLog;
 import com.kevin.devil.models.DevilRequest;
 
-import okhttp3.Call;
+import retrofit2.Call;
 
 public final class Devil {
 
