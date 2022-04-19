@@ -16,6 +16,11 @@ import retrofit2.Call;
 
 public final class Devil {
 
+    private static Hermes hermes;
+
+    public static Hermes getHermes() {
+        return hermes;
+    }
 
     private static DevilConfig sConfig;
 
@@ -24,6 +29,8 @@ public final class Devil {
     class Topics {
         final static String DEBUG = "D/DEBUG";
         final static String ERROR = "D/ERROR";
+        final static String VERBOSE = "D/VERBOSE";
+        final static String INFO = "D/INFO";
         final static String REQUEST = "D/REQUEST";
         final static String FAILED_REQUEST = "D/FAILED_REQUEST";
         final static String EXCEPTION = "D/EXCEPTION";
@@ -34,6 +41,7 @@ public final class Devil {
     public static void breath(@NonNull DevilConfig devilConfig) {
         sConfig = devilConfig;
         gson = new Gson();
+        hermes = new Hermes();
         if (sConfig.isRealTimeEnabled())
             RemoteDevil.breath(devilConfig);
     }
@@ -46,11 +54,15 @@ public final class Devil {
     }
 
     public static void d(@NonNull String msg, Object... args) {
-        if (sConfig.isLocalEnabled()) {
-            Log.d(sConfig.getTag(), getCodeLocation() + formatMessage(msg, args));
+        Log.e("Devil", "Config error...");
+        if (sConfig == null)
+            Log.d("Devil", "Config error...");
+        else {
+            if (sConfig.isLocalEnabled())
+                Log.d(sConfig.getTag(), getCodeLocation() + formatMessage(msg, args));
+            if (sConfig.isRealTimeEnabled())
+                RemoteDevil.scream(gson.toJson(new DevilLog(Topics.DEBUG, msg, getCodeLocation())), Topics.DEBUG);
         }
-        if (sConfig.isRealTimeEnabled())
-           RemoteDevil.scream(gson.toJson(new DevilLog(Topics.DEBUG, msg, getCodeLocation())), Topics.DEBUG);
     }
 
 
@@ -59,7 +71,25 @@ public final class Devil {
             Log.e(sConfig.getTag(), getCodeLocation().toString() + formatMessage(msg, args));
         if (sConfig.isRealTimeEnabled()) {
             DevilLog devilLog = new DevilLog(Topics.ERROR, msg, getCodeLocation());
-           RemoteDevil.scream(gson.toJson(devilLog), Topics.ERROR);
+            RemoteDevil.scream(gson.toJson(devilLog), Topics.ERROR);
+        }
+    }
+
+    public static void i(@NonNull String msg, Object... args) {
+        if (sConfig.isLocalEnabled())
+            Log.i(sConfig.getTag(), getCodeLocation().toString() + formatMessage(msg, args));
+        if (sConfig.isRealTimeEnabled()) {
+            DevilLog devilLog = new DevilLog(Topics.INFO, msg, getCodeLocation());
+            RemoteDevil.scream(gson.toJson(devilLog), Topics.INFO);
+        }
+    }
+
+    public static void v(@NonNull String msg, Object... args) {
+        if (sConfig.isLocalEnabled())
+            Log.v(sConfig.getTag(), getCodeLocation().toString() + formatMessage(msg, args));
+        if (sConfig.isRealTimeEnabled()) {
+            DevilLog devilLog = new DevilLog(Topics.VERBOSE, msg, getCodeLocation());
+            RemoteDevil.scream(gson.toJson(devilLog), Topics.VERBOSE);
         }
     }
 
