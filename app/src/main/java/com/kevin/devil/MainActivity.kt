@@ -13,23 +13,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
-
-        DevilShouter.scream(this, "I am fucking devil...")
-
-        Timber.log(0,"")
-        Timber.e("")
-        Timber.i("")
-        Timber.w("")
-        Timber.v("")
-        Timber.d("")
-        Timber.wtf("")
-
     }
 
     @OnClick(R.id.click)
     fun click() {
-//        Devil.d("Debug message..")
-        Devil.getHermes().sendMessage(DevilMessage("user","message message",System.currentTimeMillis(),0,false,true))
+        Devil.getHermes().sendMessage(
+            DevilMessage("user",
+                "message message",
+                System.currentTimeMillis(),
+                0,
+                false,
+                true)
+        )
     }
-
 }

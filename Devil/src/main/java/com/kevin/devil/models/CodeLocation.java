@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class CodeLocation {
+import java.io.Serializable;
+
+public class CodeLocation implements Serializable {
     private String fileName;
     private String thread;
     private String className;

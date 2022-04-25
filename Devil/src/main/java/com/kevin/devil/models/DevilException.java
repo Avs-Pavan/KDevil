@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class DevilException {
+import java.io.Serializable;
+
+public class DevilException implements Serializable {
     private String type;
     private String message;
     private CodeLocation codeLocation;

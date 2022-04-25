@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class DevilMessage {
+import java.io.Serializable;
+
+public class DevilMessage implements Serializable {
 
     private String userId;
     private String message;

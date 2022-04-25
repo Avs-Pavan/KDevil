@@ -2,7 +2,9 @@ package com.kevin.devil.models;
 
 import android.content.Context;
 
-public class DevilConfig {
+import java.io.Serializable;
+
+public class DevilConfig implements Serializable {
 
     private boolean isLocalEnabled;
     private boolean isRealTimeEnabled;

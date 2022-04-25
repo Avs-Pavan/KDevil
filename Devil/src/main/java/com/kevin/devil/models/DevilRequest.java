@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class DevilRequest {
+import java.io.Serializable;
+
+public class DevilRequest implements Serializable {
     private int code;
     private long elapsedTime;
     private String url;

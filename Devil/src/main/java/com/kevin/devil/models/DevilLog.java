@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class DevilLog {
+import java.io.Serializable;
+
+public class DevilLog implements Serializable {
     private String type;
     private String message;
     private CodeLocation codeLocation;

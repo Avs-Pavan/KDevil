@@ -1,6 +1,8 @@
 package com.kevin.devil.models;
 
-public class DevilFailedRequest {
+import java.io.Serializable;
+
+public class DevilFailedRequest implements Serializable {
     private CodeLocation codeLocation;
     private  String url;
     private String errorMessage;
